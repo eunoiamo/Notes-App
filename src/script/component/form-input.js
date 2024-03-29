@@ -27,6 +27,9 @@ class FormInput extends HTMLElement {
             border-radius: 12px;
             margin: 50px auto;
             border: 1px solid #3333;
+
+            box-shadow:  5px 2px 18px #c7c7c7,
+             -4px -2px 10px #f9f9f9;
             width: 80%;
             justify-content: center;
           }
@@ -79,15 +82,17 @@ class FormInput extends HTMLElement {
           
           .pesan-validasi{
             color:red;
-            text-align:center;
-            font-size:.8rem;
+            text-align:left;
+            font-size:.69rem;
+            font-weight: bold;
+            margin-inline: 15px;
           }
           .submit-button {
             max-width: 10rem;
             padding: 5px 40px;
             cursor:pointer;
             border: 3px solid transparent;
-            border-radius: 15px;
+            border-radius: 10px;
             font-weight: bold;
             align-self: flex-end;
             font-size:1.8rem;
@@ -132,7 +137,7 @@ class FormInput extends HTMLElement {
     titleInput.id = "input-title";
     titleInput.classList.add("input-title");
     titleInput.required = true;
-    titleInput.pattern = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+    titleInput.pattern = "^(?![_. ])(?!.*[_. ]{2})[a-zA-Z0-9._ ]+(?<![_. ])$";
     titleInput.minLength = "2";
     titleInput.autocomplete = "off";
     titleInput.ariaDescribedby = "validasijudul";

@@ -14,8 +14,9 @@ class CustomHeader extends HTMLElement {
         width: 100%;
         background-color: transparent;
         border-radius: 3px;
-        box-shadow:  20px 20px 60px #c4c38b,
-             -20px -20px 60px #ffffbb;
+        background: #e0e0e0;
+        box-shadow:  5px 5px 10px #c7c7c7,
+                     -5px -5px 10px #f9f9f9;
 
 
       }

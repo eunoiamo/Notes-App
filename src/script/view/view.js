@@ -1,4 +1,5 @@
-import AllNotes from "../data/notesData.js";
+import ApiNotes from "../data/apiNotes";
+import Swal from "sweetalert2";
 
 const view = () => {
   const list = document.querySelector(".list");
@@ -11,17 +12,13 @@ const view = () => {
 
   let filteredNotes = [];
 
-
   formInput.shadowRoot.addEventListener("submit", (e) => {
     e.preventDefault();
     const titleValue = titleField.value;
     const bodyValue = bodyField.value;
     const newNote = {
-      id: `notes-${Date.now()}`,
       title: titleValue,
       body: bodyValue,
-      createdAt: new Date().toISOString(),
-      archived: false,
     };
 
     if (!newNote.title || !newNote.body) {
@@ -29,26 +26,36 @@ const view = () => {
       return;
     }
 
-    AllNotes.insertNote(newNote); 
-    clearField();
-    showAllNotes();
-  });
+    ApiNotes.insertNote(newNote)
+      .then((message) => {
+        showSuccessAlert(message);
+        showAllNotes();
+        clearField();
+      })
+      .catch((error) => {
+        showErrorAlert(error);
+      });
+    });
 
   searchBarField.addEventListener("input", () => {
     const query = searchBarField.value.toLowerCase();
     filteredNotes = AllNotes.searchNote(query);
     displayResult(filteredNotes);
   });
-
-  const clearField = ()=>{
-    titleField.value = ''
-    bodyField.value = ''
-  }
+  
+  const clearField = () => {
+    titleField.value = "";
+    bodyField.value = "";
+  };
 
   const showAllNotes = () => {
-    const allNotes = AllNotes.getAll();
-    const nonArchivedNotes = allNotes.filter(note => !note.archived);
-    displayResult(nonArchivedNotes);
+    ApiNotes.getNotes()
+      .then((response) => {
+        displayResult(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const displayResult = (notes) => {
@@ -60,25 +67,61 @@ const view = () => {
           <small class="timestamp">${new Date(
             note.createdAt
           ).toLocaleString()}</small>
-          <button class="archive-button" data-note-id="${note.id}"><ion-icon name="archive-outline"></ion-icon>archive</button>
+          <button class="archive-button" data-note-id="${
+            note.id
+          }"><ion-icon name="archive-outline"></ion-icon>archive</button>
+          <button class="delete-button" data-note-id="${
+            note.id
+          }"><ion-icon name="close-outline"></ion-icon></button>
         </div>
       `;
     });
     list.innerHTML = notesHTML.join("");
   };
-  
+
   list.addEventListener("click", (event) => {
     const clickedButton = event.target.closest(".archive-button");
     if (clickedButton) {
       const noteId = clickedButton.dataset.noteId;
-      const success = AllNotes.toggleArchiveNote(noteId); // Mengubah status arsip
-      if (success) {
-        showAllNotes(); // Merender ulang setelah perubahan
-      } else {
-        console.error("Failed to toggle archive status for note:", noteId);
-      }
+      console.log(noteId);
+      // const success = AllNotes.toggleArchiveNote(noteId);
+      // if (success) {
+      //   showAllNotes();
+      // } else {
+      //   console.error("Failed to toggle archive status for note:", noteId);
+      // }
     }
   });
+
+  list.addEventListener("click", (e) => {
+    const clickedButton = e.target.closest(".delete-button");
+    const noteId = clickedButton.dataset.noteId;
+    ApiNotes.deleteNote(noteId)
+      .then((message) => {
+        showSuccessAlert(message);
+        showAllNotes()
+      })
+      .catch((error) => {
+        showErrorAlert(error);
+      });
+  });
+
+  const showSuccessAlert = (message) => {
+    Swal.fire({
+      icon: "success",
+      title: message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+  const showErrorAlert = (error) => {
+    Swal.fire({
+      icon: "error",
+      title: error.message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
 
   showAllNotes();
 };
