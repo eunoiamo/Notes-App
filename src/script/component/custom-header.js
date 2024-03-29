@@ -12,6 +12,8 @@ class CustomHeader extends HTMLElement {
       }
       nav {
         width: 100%;
+        
+
         background-color: transparent;
         border-radius: 3px;
         background: #e0e0e0;
@@ -21,6 +23,8 @@ class CustomHeader extends HTMLElement {
 
       }
       .navbar-container {
+        display: flex;
+        justify-content: space-between;
         width: 80%;
         margin: 0 auto;
         text-align: center;
@@ -34,7 +38,23 @@ class CustomHeader extends HTMLElement {
           font-size: 1.7em;
           font-family: sans-serif;
       }
+      .open-dialog{
+        position:relative;
+        justify-self: flex-end;
+        display: flex;
+        gap: 10px;
+        font-weight: bold;
+        font-size: 1em;
+        padding: 0 8px;
+        color:#333;
+        
+        align-items : center;
+        background-color: transparent;
+        border: 1px solid #333;
+        border-radius:10px;
+        cursor: pointer;
       
+      }
       `;
   }
 
@@ -49,6 +69,7 @@ class CustomHeader extends HTMLElement {
       <nav>
         <div class="navbar-container">
           <h2>Notes App</h2>
+          <button class="open-dialog"><ion-icon name="archive"></ion-icon>Archived</button>
         </div>
       </nav>
       `;
