@@ -47,46 +47,66 @@ const view = () => {
       });
     });
 
-  searchBarField.addEventListener("input", () => {
-    const query = searchBarField.value.toLowerCase();
-    filteredNotes = AllNotes.searchNote(query);
-    displayResult(filteredNotes);
-  });
-  
+    searchBarField.addEventListener("input", () => {
+      const query = searchBarField.value.toLowerCase();
+      if (query.trim() === "") {
+        showAllNotes();
+      } else {
+        searchAndDisplayNotes(query);
+      }
+    });
+    
+    const searchAndDisplayNotes = (query) => {
+      ApiNotes.getNotes()
+        .then((response) => {
+          const filteredNotes = response.data.filter((note) => {
+            const title = note.title.toLowerCase();
+            const body = note.body.toLowerCase();
+            return title.includes(query) || body.includes(query);
+          });
+          displayResult(filteredNotes);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    
+    const showAllNotes = () => {
+      ApiNotes.getNotes()
+        .then((response) => {
+          displayResult(response.data);
+          searchBarField.value = ""; // Hapus isi field pencarian
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    
+    const displayResult = (notes) => {
+      const notesHTML = notes.map((note) => {
+        return `
+          <div class="card">
+            <h2 class="note__title">${note.title}</h2>
+            <p class="note__body">${note.body}</p>
+            <small class="timestamp">${new Date(
+              note.createdAt
+            ).toLocaleString()}</small>
+            <button class="archive-button" data-note-id="${
+              note.id
+            }"><ion-icon name="archive-outline"></ion-icon>archive</button>
+            <button class="delete-button" data-note-id="${
+              note.id
+            }"><ion-icon name="close-outline"></ion-icon></button>
+          </div>
+        `;
+      });
+      list.innerHTML = notesHTML.join("");
+    };
+    
+
   const clearField = () => {
     titleField.value = "";
     bodyField.value = "";
-  };
-
-  const showAllNotes = () => {
-    ApiNotes.getNotes()
-      .then((response) => {
-        displayResult(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const displayResult = (notes) => {
-    const notesHTML = notes.map((note) => {
-      return `
-        <div class="card">
-          <h2 class="note__title">${note.title}</h2>
-          <p class="note__body">${note.body}</p>
-          <small class="timestamp">${new Date(
-            note.createdAt
-          ).toLocaleString()}</small>
-          <button class="archive-button" data-note-id="${
-            note.id
-          }"><ion-icon name="archive-outline"></ion-icon>archive</button>
-          <button class="delete-button" data-note-id="${
-            note.id
-          }"><ion-icon name="close-outline"></ion-icon></button>
-        </div>
-      `;
-    });
-    list.innerHTML = notesHTML.join("");
   };
 
   list.addEventListener("click", (event) => {

@@ -100,18 +100,18 @@ class FormInput extends HTMLElement {
             display:flex;
             gap:12px;
             align-items:center;
-            background-color: #8ED399;
+            background-color: #133955;
             color: #f6f6f6;
           }
           
           
           .submit-button:hover {
-            border: 3px solid #8ED399;
+            border: 3px solid #133955;
             border-radius: 15px;
             font-weight: bold;
             align-self: flex-end;
             background-color: #f6f6f6;
-            color: #8ED399;
+            color: #133955;
           }
           
           
