@@ -1,4 +1,5 @@
 import ApiNotes from "../data/apiNotes";
+import Anim from './animate.js'
 
 const showArchivedNotes = () => {
   const archivedNotesList = document.querySelector(".archived-list");
@@ -24,7 +25,7 @@ const showArchivedNotes = () => {
           <small class="timestamp">${new Date(
             note.createdAt
           ).toLocaleString()}</small>
-          <button class="restore-button" data-note-id="${
+          <button class="restore-button" id="arch-${note.id}" data-note-id="${
             note.id
           }">Restore</button>
         </div>
@@ -37,6 +38,7 @@ const showArchivedNotes = () => {
     const clickedButton = event.target.closest(".restore-button");
     if (clickedButton) {
       const noteId = clickedButton.dataset.noteId;
+      Anim.animateButtonClick(`#arch-${noteId}`)
       ApiNotes.restoreArchivedNote(noteId)
         .then((message) => {
           console.log(message);
