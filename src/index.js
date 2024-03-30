@@ -7,27 +7,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function hideLoader() {
-  const loader = document.querySelector('.loader');
-  loader.classList.add('loader-hidden');
+  const loader = document.querySelector(".loader");
+  loader.classList.add("loader-hidden");
 }
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   setTimeout(() => {
     hideLoader();
   }, 450);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  gsap.from(".list", { 
-    opacity: 0, 
-    y: 50, 
-    duration: .5,
+  gsap.from(".list", {
+    opacity: 0,
+    y: 50,
+    duration: 0.5,
     ease: "back.in(1.7)",
     scrollTrigger: {
-      start: '10px top',
-      end: 'bottom bottom',
-      scrub: 1
-  }
+      start: "10px top",
+      end: "bottom bottom",
+      scrub: 1,
+    },
   });
   view();
   showArchivedNotes();

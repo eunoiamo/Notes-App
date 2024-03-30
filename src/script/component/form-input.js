@@ -190,7 +190,7 @@ class FormInput extends HTMLElement {
     submitButton.classList.add("submit-button");
     submitButton.type = "submit";
     submitButton.innerHTML = '<ion-icon name="add-outline"></ion-icon> ';
-    
+
     form.appendChild(titleDiv);
     form.appendChild(bodyDiv);
     form.appendChild(submitButton);

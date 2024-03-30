@@ -11,13 +11,8 @@ html,
 body {
   background-color: #e0e0e0;
   font-family: Quicksand;
-
 }
 
-
-
-
-/* list notes */
 .list {
   width: 85%;
   max-width: 1000px;
@@ -30,7 +25,6 @@ body {
   padding: 20px 10px;
 }
 
-
 .card {
   border-radius: 8px;
   position: relative;
@@ -41,18 +35,19 @@ body {
   display: flex;
   background: #e6e5a3;
   background: #e0e0e0;
-  box-shadow:  5px 5px 10px #c7c7c7,
-               -5px -5px 10px #f9f9f9;
+  box-shadow:
+    5px 5px 10px #c7c7c7,
+    -5px -5px 10px #f9f9f9;
   gap: 10px;
   background-color: hsl(59, 57%, 77%);
   flex-direction: column;
 }
-.card > p{
+.card > p {
   overflow: hidden;
-
 }
 
-.archive-button, .restore-button{
+.archive-button,
+.restore-button {
   position: absolute;
   bottom: 10px;
   right: 0;
@@ -67,23 +62,24 @@ body {
   border-radius: 10px;
   background: linear-gradient(145deg, #f6f5ae, #cfce93);
   background: #e6e5a3;
-  box-shadow:  11px 11px 22px #c6c58c,
-               -11px -11px 22px #ffffba;
+  box-shadow:
+    11px 11px 22px #c6c58c,
+    -11px -11px 22px #ffffba;
 
   border: 2px solid #ffffba;
   cursor: pointer;
   align-self: flex-end;
 }
 
-.card > .delete-button{
+.card > .delete-button {
   display: flex;
   align-items: center;
-  width: 5vh; 
-  height: 5vh; 
+  width: 5vh;
+  height: 5vh;
   padding: 2px;
   border-radius: 10px;
   border: 1px solid transparent;
-  background-color: #E00034;
+  background-color: #e00034;
   text-align: center;
   font-size: 2em;
   color: #fefefe;
@@ -97,11 +93,10 @@ body {
 .card:hover .delete-button {
   visibility: visible;
 }
-::backdrop{
+::backdrop {
   background: #e0e0e080;
   display: flex;
 }
-
 
 .dialog-container {
   display: flex;
@@ -117,7 +112,7 @@ dialog {
   margin: auto;
   border: 1px solid transparent;
   background-color: transparent;
-  
+
   animation: fade-out 0.5s ease-in-out;
 }
 
@@ -128,7 +123,6 @@ dialog[open] {
 dialog[open]::backdrop {
   animation: backdrop-fade-in 0.5s ease-in-out forwards;
 }
-
 
 @keyframes fade-in {
   0% {
@@ -168,24 +162,21 @@ dialog[open]::backdrop {
   }
 }
 
-
-
 .dialog-box {
   background-color: #fefefe;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  position: relative; 
-  width: 90vw; 
+  position: relative;
+  width: 90vw;
   height: 90vh;
   margin: auto;
   padding-bottom: 100px;
   overflow: auto;
 }
 
-
-.open-dialog{
-  position:relative;
+.open-dialog {
+  position: relative;
   justify-self: flex-end;
   display: flex;
   gap: 10px;
@@ -202,21 +193,21 @@ dialog[open]::backdrop {
   bottom: -20px;
   left: auto;
   cursor: pointer;
-  padding:10px 20px;
+  padding: 10px 20px;
   width: 120px;
   font-weight: bold;
-  background-color:  #E00034;
+  background-color: #e00034;
   color: white;
   border-radius: 10px;
   border: 2px solid transparent;
 }
-.close-dialog:hover{
+.close-dialog:hover {
   background-color: #fefefe;
-  color:  #E00034;
-  border: 2px solid  #E00034;
+  color: #e00034;
+  border: 2px solid #e00034;
 }
 
-.archived-list{
+.archived-list {
   display: grid;
   gap: 20px;
   display: grid;
@@ -237,8 +228,10 @@ dialog[open]::backdrop {
   justify-content: center;
   align-items: center;
   background-color: #fefefe;
-  visibility: visible; 
-  transition: opacity 0.75s, visibility 0.75s; 
+  visibility: visible;
+  transition:
+    opacity 0.75s,
+    visibility 0.75s;
 }
 
 .loader-hidden {
@@ -251,14 +244,18 @@ dialog[open]::backdrop {
   width: 75px;
   height: 75px;
   border: 10px solid #dedede;
-  border-color: #e6e5a3 transparent #e6e5a3 transparent; 
+  border-color: #e6e5a3 transparent #e6e5a3 transparent;
   border-radius: 50%;
-  animation: spin 1s linear infinite; 
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loader.active {

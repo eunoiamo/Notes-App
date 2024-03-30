@@ -37,8 +37,8 @@ class ApiNotes {
       throw new Error(error.message);
     }
   };
-  
-  static archiveNote = async (noteId)=>{
+
+  static archiveNote = async (noteId) => {
     try {
       const option = {
         method: "POST",
@@ -47,20 +47,22 @@ class ApiNotes {
         },
       };
       console.log(option);
-      const response = await fetch(`${endpoint}/notes/${noteId}/archive`, option);
+      const response = await fetch(
+        `${endpoint}/notes/${noteId}/archive`,
+        option,
+      );
       const result = await response.json();
-    
+
       if (result.error) {
         throw new Error(`Cannot Add POST to API`);
       } else {
         return result.message;
       }
-      
     } catch (error) {
       throw new Error(error.message);
     }
-  }
-  static restoreArchivedNote = async (noteId)=>{
+  };
+  static restoreArchivedNote = async (noteId) => {
     try {
       const option = {
         method: "POST",
@@ -69,19 +71,21 @@ class ApiNotes {
         },
       };
       console.log(option);
-      const response = await fetch(`${endpoint}/notes/${noteId}/unarchive`, option);
+      const response = await fetch(
+        `${endpoint}/notes/${noteId}/unarchive`,
+        option,
+      );
       const result = await response.json();
-    
+
       if (result.error) {
         throw new Error(`Cannot Add POST to API`);
       } else {
         return result.message;
       }
-      
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+  };
 
   static deleteNote = async (noteId) => {
     try {
